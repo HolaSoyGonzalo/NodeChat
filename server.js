@@ -16,11 +16,16 @@ io.on("connection", (socket) => {
   socket.emit("message", "Welcome to NodeChat");
 
   // Broadcast when a user connects
-  socket.broadcast.emit("message", " A user has joined the chat");
+  socket.broadcast.emit("message", "A user has joined the chat");
 
   // Runs when client disconnects
   socket.on("disconnect", () => {
     io.emit("message", "A user has left the chat");
+  });
+
+  // Listen for chatMessages
+  socket.on("chatMessage", (msg) => {
+    io.emit("message", msg);
   });
 });
 
